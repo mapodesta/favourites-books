@@ -3,26 +3,21 @@ import { FieldTimeOutlined, HeartFilled } from '@ant-design/icons';
 import '../Cards/cards.css';
 import { useNavigate } from 'react-router-dom';
 import Header from '../Header/Header';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-const Fav = (favourites) => {
+const Fav = () => {
   let navigate = useNavigate();
-  console.log(favourites);
   const [dataPagination, setDataPagination] = useState([]);
   const [toPagination, setToPagination] = useState(6);
   const [infoFavs, setInfoFavs] = useState([]);
 
-  // useEffect(() => {
-  //   const setData = async () => {
-  //     console.log('INGRESAAAA');
-  //     await setInfoFavs(JSON.parse(localStorage.getItem('data')));
+  useEffect(() => {
+    setInfoFavs(JSON.parse(localStorage.getItem('data')));
+  }, []);
 
-  //     await setDataPagination(infoFavs.slice(0, 6));
-  //   };
-  //   setData();
-  // }, []);
-
-  // console.log(dataPagination);
+  useEffect(() => {
+    setDataPagination(infoFavs.slice(0, 6));
+  }, [infoFavs]);
 
   const handlePageChangeFav = (value) => {
     if (parseInt(value) === 1) {

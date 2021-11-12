@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 
 const useFetch = () => {
@@ -6,18 +6,6 @@ const useFetch = () => {
 
   const [dataPagination, setDataPagination] = useState([]);
   const [toPagination, setToPagination] = useState(6);
-
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     const data = await axios.get(
-  //       'https://hn.algolia.com/api/v1/search_by_date?query=angular&hitsPerPage=24'
-  //     );
-  //     setInfo(data.data.hits);
-  //     setDataPagination(data.data.hits.slice(0, 6));
-  //   };
-
-  //   getData();
-  // }, []);
 
   const handleChangePage = (value) => {
     if (parseInt(value) === 1) {

@@ -5,7 +5,6 @@ import useFetch from '../../hooks/useFetch';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../Header/Header';
-import Fav from '../Favs/Fav';
 import React from 'react';
 
 const Cards = () => {
@@ -31,10 +30,6 @@ const Cards = () => {
   const { dataPagination, info, handleChangeName, handleChangePage } =
     useFetch();
 
-  // const navigateFavourites = () => {
-  //   <Fav favs={favs} />;
-  // };
-
   return (
     <>
       <div className="Front-End-Test---Home-view">
@@ -50,7 +45,6 @@ const Cards = () => {
             style={{ width: '20% ' }}
             onChange={handleChangeName}
             placeholder="Select your News"
-            defaultValue="Angular"
           >
             <Option value="react">React</Option>
             <Option value="angular">Angular</Option>
