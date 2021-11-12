@@ -5,6 +5,8 @@ import useFetch from '../../hooks/useFetch';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../Header/Header';
+import Fav from '../Favs/Fav';
+import React from 'react';
 
 const Cards = () => {
   const { Option } = Select;
@@ -29,13 +31,19 @@ const Cards = () => {
   const { dataPagination, info, handleChangeName, handleChangePage } =
     useFetch();
 
+  // const navigateFavourites = () => {
+  //   <Fav favs={favs} />;
+  // };
+
   return (
     <>
       <div className="Front-End-Test---Home-view">
         <Header />
         <div className="button-section">
           <Button>All</Button>
-          <Button onClick={() => navigate('/favs')}>Favs</Button>
+          <Button onClick={() => navigate('/favs', { favs: favs })}>
+            Favs
+          </Button>
         </div>
         <div className="selector">
           <Select
@@ -99,4 +107,4 @@ const Cards = () => {
   );
 };
 
-export default Cards;
+export default React.memo(Cards);
