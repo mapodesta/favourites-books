@@ -2,33 +2,21 @@ import { Card, Col, Row, Select, Pagination, Button } from 'antd';
 import { FieldTimeOutlined, HeartFilled } from '@ant-design/icons';
 import './cards.css';
 import useFetch from '../../hooks/useFetch';
-import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../Header/Header';
-import React from 'react';
+import { Colorize } from '../../helpers';
 
 const Cards = () => {
   const { Option } = Select;
   let navigate = useNavigate();
-  const [favs, setFavs] = useState([]);
 
-  const handleFavourites = (tarj) => {
-    let obj = {
-      created_at: tarj.created_at,
-      author: tarj.author,
-      story_url: tarj.story_url,
-      story_title: tarj.story_title,
-    };
-
-    setFavs((prev) => [...prev, obj]);
-  };
-
-  useEffect(() => {
-    localStorage.setItem('data', JSON.stringify(favs));
-  }, [favs]);
-
-  const { dataPagination, info, handleChangeName, handleChangePage } =
-    useFetch();
+  const {
+    dataToShow,
+    totalData,
+    handleChangeName,
+    handleChangePage,
+    handleFavourites,
+  } = useFetch();
 
   return (
     <>
@@ -36,24 +24,23 @@ const Cards = () => {
         <Header />
         <div className="button-section">
           <Button>All</Button>
-          <Button onClick={() => navigate('/favs', { favs: favs })}>
-            Favs
-          </Button>
+          <Button onClick={() => navigate('/favs')}>Favs</Button>
         </div>
         <div className="selector">
           <Select
+            defaultValue={localStorage.getItem('selected')}
             style={{ width: '20% ' }}
             onChange={handleChangeName}
             placeholder="Select your News"
           >
-            <Option value="react">React</Option>
+            <Option value="reactjs">React</Option>
             <Option value="angular">Angular</Option>
             <Option value="vuejs">VueJS</Option>
           </Select>
         </div>
         <Row gutter={[0, 50]}>
-          {dataPagination.length !== 0
-            ? dataPagination.map((inf, index) => {
+          {dataToShow.length !== 0
+            ? dataToShow.map((inf, index) => {
                 return (
                   <Col className="gutter-row" xs={12} key={index}>
                     <div className="card-content">
@@ -71,13 +58,11 @@ const Cards = () => {
                           <p>{inf.story_title}</p>
                         </div>
                       </Card>
-                      <div
-                        className="icon-style"
-                        onClick={() => handleFavourites(inf)}
-                      >
+                      <div className="icon-style">
                         <HeartFilled
+                          onClick={() => handleFavourites(inf, index)}
                           style={{
-                            color: 'red',
+                            color: Colorize(inf),
                             fontSize: '50px',
                           }}
                         />
@@ -91,7 +76,7 @@ const Cards = () => {
         <div className="pagination">
           <Pagination
             defaultCurrent={1}
-            total={info?.length}
+            total={totalData?.length}
             defaultPageSize={6}
             onChange={handleChangePage}
           />
@@ -101,4 +86,4 @@ const Cards = () => {
   );
 };
 
-export default React.memo(Cards);
+export default Cards;

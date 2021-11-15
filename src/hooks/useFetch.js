@@ -1,54 +1,34 @@
-import { useState } from 'react';
-import axios from 'axios';
-
+import { useContext } from 'react';
+import favContext from '../Context/FavContext';
 const useFetch = () => {
-  const [info, setInfo] = useState([]);
+  const FavContext = useContext(favContext);
 
-  const [dataPagination, setDataPagination] = useState([]);
-  const [toPagination, setToPagination] = useState(6);
+  const { obtenerData, totalData, dataToShow, dataPagination, addFavs, favs } =
+    FavContext;
 
   const handleChangePage = (value) => {
-    if (parseInt(value) === 1) {
-      setToPagination(6);
-      return setDataPagination(info.slice(0, 6));
-    }
-    setDataPagination(info.slice(toPagination, value * 6));
-    setToPagination(value * 6);
+    dataPagination(value);
   };
 
   const handleChangeName = async (value) => {
-    if (value === 'react') {
-      localStorage.setItem('selected', value);
-      const data = await axios.get(
-        ' https://hn.algolia.com/api/v1/search_by_date?query=reactjs&hitsPerPage=24'
-      );
-      setInfo(data.data.hits);
-      setDataPagination(data.data.hits.slice(0, 6));
-    }
-
-    if (value === 'angular') {
-      localStorage.setItem('selected', value);
-      const data = await axios.get(
-        ' https://hn.algolia.com/api/v1/search_by_date?query=angular&hitsPerPage=24'
-      );
-      setInfo(data.data.hits);
-      return setDataPagination(data.data.hits.slice(0, 6));
-    }
-
-    if (value === 'vuejs') {
-      localStorage.setItem('selected', value);
-      const data = await axios.get(
-        ' https://hn.algolia.com/api/v1/search_by_date?query=vuejs&hitsPerPage=24'
-      );
-      setInfo(data.data.hits);
-      return setDataPagination(data.data.hits.slice(0, 6));
-    }
+    localStorage.setItem('selected', value);
+    obtenerData(value);
   };
+
+  const handleFavourites = (inf) => {
+    inf.like = !inf?.like;
+    addFavs(inf);
+  };
+
+  localStorage.setItem('data', JSON.stringify(favs));
+
   return {
-    info,
-    dataPagination,
+    totalData,
+    favs,
+    dataToShow,
     handleChangeName,
     handleChangePage,
+    handleFavourites,
   };
 };
 
