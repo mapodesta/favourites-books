@@ -1,5 +1,5 @@
 import { AGREGAR_FAVORITOS, DATA_A_MOSTRAR, DATA_COMPLETA } from '../types';
-
+// eslint-disable-next-line
 export default (state, action) => {
   switch (action.type) {
     case AGREGAR_FAVORITOS:
