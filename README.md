@@ -2,7 +2,7 @@
 
 This project was created using React, HTML,CSS, Ant Design.
 
-Using React-Router-Dom, Hooks, create custom hooks.
+Using React-Router-Dom, Hooks, Create Custom Hooks.
 
 # Getting Started with Create React App
 
