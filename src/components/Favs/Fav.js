@@ -19,7 +19,7 @@ const Fav = () => {
             All
           </Button>
           <Button size={'50px'} onClick={() => navigate('/favs')}>
-            Favs
+            My Faves
           </Button>
         </div>
         <Row gutter={[0, 50]}>
