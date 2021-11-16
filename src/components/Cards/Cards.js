@@ -24,7 +24,7 @@ const Cards = () => {
         <Header />
         <div className="button-section">
           <Button>All</Button>
-          <Button onClick={() => navigate('/favs')}>Favs</Button>
+          <Button onClick={() => navigate('/favs')}>My Faves</Button>
         </div>
         <div className="selector">
           <Select

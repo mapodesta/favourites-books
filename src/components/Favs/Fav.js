@@ -4,6 +4,7 @@ import '../Cards/cards.css';
 import useFetch from '../../hooks/useFetch';
 import { useNavigate } from 'react-router-dom';
 import Header from '../Header/Header';
+import { Colorize } from '../../helpers';
 
 const Fav = () => {
   const navigate = useNavigate();
@@ -43,8 +44,9 @@ const Fav = () => {
                       </Card>
                       <div className="icon-style">
                         <HeartFilled
+                          onClick={() => handleFavourites(inf, index)}
                           style={{
-                            color: 'red',
+                            color: Colorize(inf),
                             fontSize: '50px',
                           }}
                         />
